@@ -13,6 +13,7 @@ module.exports = function () {
     },
     restrict: 'E',
     scope: {
+      tabSelection: '<',
       totalAnnotations: '<',
       totalNotes: '<',
     },

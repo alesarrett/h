@@ -96,6 +96,7 @@ module.exports = function WidgetController(
     visibleThreads.setRootThread(thread());
     $scope.totalAnnotations = countAnnotations(annotationUI.getState().annotations);
     $scope.totalNotes = countNotes(annotationUI.getState().annotations);
+    $scope.tabSelection = annotationUI.getState().selectedTab;
   });
   visibleThreads.on('changed', function (state) {
     $scope.virtualThreadList = {

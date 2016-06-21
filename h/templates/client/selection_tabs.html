@@ -1,9 +1,11 @@
 <!-- Tabbed display of annotations and notes. -->
-<ul class="selection_tabs">
-  <li class="selection_tabs__annotations" ng-click="vm.selectTab('annotation')">
-    Annotations ( {{ vm.totalAnnotations }} )
+<ul class="selection-tabs">
+  <li class="selection-tabs__type" ng-class="{'selection-tabs--selected': vm.tabSelection === 'annotation'}" ng-click="vm.selectTab('annotation')">
+    Annotations
+    <sup>{{ vm.totalAnnotations }}</sup>
   </li>
-  <li class="selection_tabs__notes" ng-click="vm.selectTab('note')">
-    Notes ( {{ vm.totalNotes }} )
+  <li class="selection-tabs__type" ng-class="{'selection-tabs--selected': vm.tabSelection === 'note'}" ng-click="vm.selectTab('note')">
+    Notes
+    <sup>{{ vm.totalNotes }}</sup>
   </li>
 </ul>
