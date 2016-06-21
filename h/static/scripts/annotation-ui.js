@@ -11,6 +11,9 @@
 var immutable = require('seamless-immutable');
 var redux = require('redux');
 
+var TAB_ANNOTATIONS = 'annotation';
+var TAB_NOTES = 'note';
+
 function freeze(selection) {
   if (Object.keys(selection).length) {
     return immutable(selection);
@@ -54,6 +57,9 @@ function initialState(settings) {
     highlighted: [],
 
     filterQuery: null,
+
+    // By default select the annotations tab
+    selectedTab: TAB_ANNOTATIONS,
 
     // Key by which annotations are currently sorted.
     sortKey: 'Location',
@@ -162,8 +168,8 @@ module.exports = function (settings) {
   }
 
   return {
-    TAB_ANNOTATIONS: 'annotation',
-    TAB_NOTES: 'note',
+    TAB_ANNOTATIONS: TAB_ANNOTATIONS,
+    TAB_NOTES: TAB_NOTES,
 
     /**
      * Return the current UI state of the sidebar. This should not be modified
