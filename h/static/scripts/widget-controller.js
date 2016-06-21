@@ -360,11 +360,6 @@ module.exports = function WidgetController(
     return thread().totalChildren;
   };
 
-  $scope.selectTab = function (type) {
-    $scope.clearSelection();
-    annotationUI.selectTab(type);
-  };
-
   /**
    * Return the vertical scroll offset for the document in order to position the
    * annotation thread with a given `id` or $$tag at the top-left corner
