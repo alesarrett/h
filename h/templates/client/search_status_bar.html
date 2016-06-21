@@ -14,13 +14,13 @@
 <div class="search-status-bar" ng-if="!filterActive && selectionCount > 0">
   <button class="primary-action-btn primary-action-btn--short"
           ng-click="onClearSelection()"
-          title="Clear the selection and show all annotations"
-  >
-    <span ng-pluralize
-             count="totalCount"
-             when="{'0': 'Show all annotations',
-                    'one': 'Show all annotations',
-                    'other': 'Show all {{totalCount}} annotations'}"></span>
+          title="Clear the selection and show all annotations">
+    <span ng-if="tabSelection === 'annotation'">
+      Show all annotations ({{totalAnnotations}})
+    </span>
+    <span ng-if="tabSelection === 'note'">
+      Show all notes ({{totalNotes}})
+    </span>
   </button>
 
 </div>

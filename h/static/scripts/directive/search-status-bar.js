@@ -11,7 +11,9 @@ module.exports = function () {
       onClearSelection: '&',
       searchQuery: '<',
       selectionCount: '<',
-      totalCount: '<',
+      totalAnnotations: '<',
+      totalNotes: '<',
+      tabSelection: '<',
     },
     template: require('../../../templates/client/search_status_bar.html'),
   };

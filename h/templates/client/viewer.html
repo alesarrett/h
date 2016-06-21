@@ -20,7 +20,9 @@
     search-query="search ? search.query : ''"
     selection-count="selectedAnnotationCount()"
     total-count="topLevelThreadCount()"
-    >
+    tab-selection="tabSelection"
+    total-annotations="totalAnnotations"
+    total-notes="totalNotes">
   </search-status-bar>
   <li class="annotation-unavailable-message"
       ng-if="selectedAnnotationUnavailable()">
