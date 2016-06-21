@@ -348,7 +348,9 @@ function buildThread(annotations, opts) {
 
   // Get annotations which are of type notes or annotations depending
   // on the filter.
-  thread.children = thread.children.filter(opts.threadFilterFn);
+  if (opts.threadFilterFn) {
+    thread.children = thread.children.filter(opts.threadFilterFn);
+  }
 
   // Sort the root thread according to the current search criteria
   thread = sortThread(thread, opts.sortCompareFn, opts.replySortCompareFn);
