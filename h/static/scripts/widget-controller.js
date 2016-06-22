@@ -66,7 +66,7 @@ module.exports = function WidgetController(
       return metadata.isAnnotation(annotation) ? count + 1 : count;
     }, 0);
     return total;
-  };
+  }
 
   /**
    * Returns the number of top level annotations which are of type notes.
@@ -76,7 +76,7 @@ module.exports = function WidgetController(
       return metadata.isPageNote(annotation) ? count + 1 : count;
     }, 0);
     return total;
-  };
+  }
 
   /**
    * Returns the height of the thread for an annotation if it exists in the view

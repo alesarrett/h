@@ -86,7 +86,7 @@ function isAnnotation(annotation) {
   if (annotation && !annotation.deleted) {
     if (annotation.target && annotation.target.length > 0 && annotation.target[0].selector) {
       return true;
-    };
+    }
   }
   return false;
 }

@@ -3,7 +3,6 @@
 var angular = require('angular');
 
 var util = require('./util');
-var unroll = require('../../test/util').unroll;
 
 describe('searchStatusBar', function () {
   before(function () {
@@ -32,6 +31,8 @@ describe('searchStatusBar', function () {
         selectionCount: 1,
         totalAnnotations: 2,
         tabSelection: 'annotation',
+        tabAnnotations: 'annotation',
+        tabNotes: 'note',
       });
       var clearBtn = elem[0].querySelector('button');
       assert.include(clearBtn.textContent, msg);
