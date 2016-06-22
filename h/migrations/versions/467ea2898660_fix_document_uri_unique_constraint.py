@@ -160,9 +160,7 @@ def upgrade():
     session = Session(bind=op.get_bind())
     merge_duplicate_document_uris(session)
     delete_conflicting_document_uris(session)
-    session.commit()
     change_nulls_to_empty_strings(session)
-    session.commit()
     op.alter_column(
         'document_uri', 'type', nullable=False, server_default=u'')
     op.alter_column(
