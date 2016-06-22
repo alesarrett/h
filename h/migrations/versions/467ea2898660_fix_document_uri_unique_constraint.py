@@ -140,7 +140,7 @@ def delete_conflicting_document_uris(session):
             session.delete(conflicting_doc_uri)
 
 
-def change_nulls_to_empty_strings(db_session):
+def change_nulls_to_empty_strings(session):
     """
     Change all null values in the type and content_type columns to ''.
 
@@ -148,10 +148,10 @@ def change_nulls_to_empty_strings(db_session):
     content_type columns with crashing.
 
     """
-    db_session.execute(document_uri_table.update()\
+    session.execute(document_uri_table.update()\
         .where(document_uri_table.c.type == sa.sql.expression.null())\
         .values(type=''))
-    db_session.execute(document_uri_table.update()\
+    session.execute(document_uri_table.update()\
         .where(document_uri_table.c.content_type == sa.sql.expression.null())\
         .values(content_type=''))
 
