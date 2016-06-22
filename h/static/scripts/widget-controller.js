@@ -16,6 +16,25 @@ function firstKey(object) {
   return null;
 }
 
+/** Returns the annotation type - note or annotation of the first annotation
+ *  in `results` whose ID is a key in `selectedAnnotationMap`.
+ */
+function tabTypeFromSelection(annotationUI, results) {
+  var id = firstKey(annotationUI.getState().selectedAnnotationMap);
+  var annot = results.find(function (annot) {
+    return annot.id === id;
+  });
+  if (!annot) {
+    return;
+  }
+  if (metadata.isAnnotation(annot)) {
+    return annotationUI.TAB_ANNOTATIONS;
+  }
+  if (metadata.isPageNote(annot)) {
+    return annotationUI.TAB_NOTES;
+  }
+}
+
 /**
  * Returns the group ID of the first annotation in `results` whose
  * ID is a key in `selection`.
@@ -98,6 +117,7 @@ module.exports = function WidgetController(
     $scope.totalNotes = countNotes(annotationUI.getState().annotations);
     $scope.tabSelection = annotationUI.getState().selectedTab;
   });
+
   visibleThreads.on('changed', function (state) {
     $scope.virtualThreadList = {
       visibleThreads: state.visibleThreads,
@@ -178,6 +198,10 @@ module.exports = function WidgetController(
     searchClients.push(searchClient);
     searchClient.on('results', function (results) {
       if (annotationUI.hasSelectedAnnotations()) {
+        // Select appropriate tab - notes or annotations, for selection
+        annotationUI.selectTab(
+          tabTypeFromSelection(annotationUI, results));
+
         // Focus the group containing the selected annotation and filter
         // annotations to those from this group
         var groupID = groupIDFromSelection(
@@ -346,6 +370,8 @@ module.exports = function WidgetController(
   };
 
   $scope.isLoading = isLoading;
+  $scope.tabAnnotations = annotationUI.TAB_ANNOTATIONS;
+  $scope.tabNotes = annotationUI.TAB_NOTES;
 
   var visibleCount = memoize(function (thread) {
     return thread.children.reduce(function (count, child) {

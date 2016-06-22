@@ -16,6 +16,8 @@ module.exports = function () {
       tabSelection: '<',
       totalAnnotations: '<',
       totalNotes: '<',
+      tabAnnotations: '<',
+      tabNotes: '<',
     },
     template: require('../../../templates/client/selection_tabs.html'),
   };

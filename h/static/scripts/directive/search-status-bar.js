@@ -14,6 +14,8 @@ module.exports = function () {
       totalAnnotations: '<',
       totalNotes: '<',
       tabSelection: '<',
+      tabAnnotations: '<',
+      tabNotes: '<',
     },
     template: require('../../../templates/client/search_status_bar.html'),
   };

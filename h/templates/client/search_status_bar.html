@@ -15,10 +15,10 @@
   <button class="primary-action-btn primary-action-btn--short"
           ng-click="onClearSelection()"
           title="Clear the selection and show all annotations">
-    <span ng-if="tabSelection === 'annotation'">
+    <span ng-if="tabSelection === tabAnnotations">
       Show all annotations ({{totalAnnotations}})
     </span>
-    <span ng-if="tabSelection === 'note'">
+    <span ng-if="tabSelection === tabNotes">
       Show all notes ({{totalNotes}})
     </span>
   </button>
