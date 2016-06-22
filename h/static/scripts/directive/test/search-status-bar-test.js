@@ -26,19 +26,15 @@ describe('searchStatusBar', function () {
   });
 
   context('when there is a selection', function () {
-    var FIXTURES = [
-      {count: 0, message: 'Show all annotations'},
-      {count: 1, message: 'Show all annotations'},
-      {count: 10, message: 'Show all 10 annotations'},
-    ];
-
-    unroll('should display the "Show all annotations" message when there are #count annotations', function (testCase) {
+    it('should display the "Show all annotations (2)" message when there are 2 annotations', function () {
+      var msg = 'Show all annotations (2)';
       var elem = util.createDirective(document, 'searchStatusBar', {
         selectionCount: 1,
-        totalCount: testCase.count
+        totalAnnotations: 2,
+        tabSelection: 'annotation',
       });
       var clearBtn = elem[0].querySelector('button');
-      assert.include(clearBtn.textContent, testCase.message);
-    }, FIXTURES);
+      assert.include(clearBtn.textContent, msg);
+    });
   });
 });
