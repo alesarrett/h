@@ -9,12 +9,14 @@ var fixtures = immutable({
   annotations: [{
     id: '1',
     references: [],
+    target: [{selector: []}],
     text: 'first annotation',
     updated: 50,
   },{
     id: '2',
     references: [],
     text: 'second annotation',
+    target: [{selector: []}],
     updated: 200,
   },{
     id: '3',

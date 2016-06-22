@@ -50,6 +50,8 @@ describe('rootThread', function () {
       removeSelectedAnnotation: sinon.stub(),
       addAnnotations: sinon.stub(),
       setCollapsed: sinon.stub(),
+      selectTab: sinon.stub(),
+      TAB_ANNOTATIONS: 'annotation',
     };
 
     fakeBuildThread = sinon.stub().returns(fixtures.emptyThread);
