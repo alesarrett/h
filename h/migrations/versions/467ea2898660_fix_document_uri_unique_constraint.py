@@ -5,6 +5,7 @@ Revises: 296573bb30b3
 Create Date: 2016-06-16 18:37:20.703447
 
 """
+from __future__ import unicode_literals
 
 # revision identifiers, used by Alembic.
 revision = '467ea2898660'
@@ -72,6 +73,73 @@ def merge_duplicate_document_uris(session):
             session.delete(document_uri)
 
 
+def delete_conflicting_document_uris(session):
+    """
+    Delete NULL DocumentURIs where there's already an empty string one.
+
+    Later we're going to be finding all DocumentURIs with NULL for their type
+    or content_type and changing them to empty strings.  But for each one of
+    these NULL DocumentURIs if there is already a matching DocumentURI - same
+    claimant_normalized, uri_normalized, type and content_type but that already
+    has an empty string instead of NULL for the type and/or content_type - then
+    trying to change the NULL DocumentURI to an empty string one will fail with
+    IntegrityError.
+
+    So find all the DocumentURIs with an empty string for their type and/or
+    content_type and for each one find any matching DocumentURIs but with
+    NULL for the type and/or content_type and delete them.
+
+    After this it should be safe to change all NULL types and content_types
+    in document_uri to empty strings.
+
+    """
+    doc_uris = session.query(DocumentURI).filter(
+        sa.or_(
+            DocumentURI.type == '',
+            DocumentURI.content_type == '',
+        )
+    )
+
+    for doc_uri in doc_uris:
+
+        conflicting_doc_uris = session.query(DocumentURI).filter(
+            DocumentURI.claimant_normalized == doc_uri.claimant_normalized,
+            DocumentURI.uri_normalized == doc_uri.uri_normalized,
+            DocumentURI.id != doc_uri.id,
+        )
+
+        if doc_uri.type == '' and doc_uri.content_type == '':
+            conflicting_doc_uris = conflicting_doc_uris.filter(
+                sa.or_(
+                    DocumentURI.type == '',
+                    DocumentURI.type.is_(None),
+                ),
+                sa.or_(
+                    DocumentURI.content_type == '',
+                    DocumentURI.content_type.is_(None),
+                ),
+            )
+        elif doc_uri.type == '':
+            conflicting_doc_uris = conflicting_doc_uris.filter(
+                sa.or_(
+                    DocumentURI.type == '',
+                    DocumentURI.type.is_(None),
+                ),
+                DocumentURI.content_type == doc_uri.content_type,
+            )
+        elif doc_uri.content_type == '':
+            conflicting_doc_uris = conflicting_doc_uris.filter(
+                DocumentURI.type == doc_uri.type,
+                sa.or_(
+                    DocumentURI.content_type == '',
+                    DocumentURI.content_type.is_(None),
+                ),
+            )
+
+        for conflicting_doc_uri in conflicting_doc_uris:
+            session.delete(conflicting_doc_uri)
+
+
 def change_nulls_to_empty_strings(db_session):
     """
     Change all null values in the type and content_type columns to ''.
@@ -91,6 +159,7 @@ def change_nulls_to_empty_strings(db_session):
 def upgrade():
     session = Session(bind=op.get_bind())
     merge_duplicate_document_uris(session)
+    delete_conflicting_document_uris(session)
     session.commit()
     change_nulls_to_empty_strings(session)
     session.commit()
