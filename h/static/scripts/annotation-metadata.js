@@ -97,20 +97,20 @@ function isAnnotation(annotation) {
  *                    the document, where lower numbers mean closer to the
  *                    start.
  */
- function location(annotation) {
-   if (annotation) {
-     var targets = annotation.target || [];
-     for (var i=0; i < targets.length; i++) {
-       var selectors = targets[i].selector || [];
-       for (var k=0; k < selectors.length; k++) {
-         if (selectors[k].type === 'TextPositionSelector') {
-           return selectors[k].start;
-         }
-       }
-     }
-   }
-   return Number.POSITIVE_INFINITY;
- }
+function location(annotation) {
+  if (annotation) {
+    var targets = annotation.target || [];
+    for (var i = 0; i < targets.length; i++) {
+      var selectors = targets[i].selector || [];
+      for (var k = 0; k < selectors.length; k++) {
+        if (selectors[k].type === 'TextPositionSelector') {
+          return selectors[k].start;
+        }
+      }
+    }
+  }
+  return Number.POSITIVE_INFINITY;
+}
 
 module.exports = {
   extractDocumentMetadata: extractDocumentMetadata,

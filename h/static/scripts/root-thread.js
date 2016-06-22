@@ -60,12 +60,12 @@ function RootThread($rootScope, annotationUI, searchFilter, viewFilter) {
     var threadFilterFn;
     if (!state.filterQuery) {
       threadFilterFn = function (thread) {
-        if(state.selectedTab === annotationUI.TAB_ANNOTATIONS) {
+        if (state.selectedTab === annotationUI.TAB_ANNOTATIONS) {
           return (metadata.isAnnotation(thread.annotation));
-        } else if(state.selectedTab === annotationUI.TAB_NOTES) {
+        } else if (state.selectedTab === annotationUI.TAB_NOTES) {
           return metadata.isPageNote(thread.annotation);
         }
-      }
+      };
     }
 
     // Get the currently loaded annotations and the set of inputs which

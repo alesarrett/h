@@ -43,8 +43,8 @@ module.exports = function WidgetController(
    * and not notes or replies.
    */
   function countAnnotations(annotations) {
-    var total = annotations.reduce(function(count, annotation) {
-      return metadata.isAnnotation(annotation) ? count+1 : count;
+    var total = annotations.reduce(function (count, annotation) {
+      return metadata.isAnnotation(annotation) ? count + 1 : count;
     }, 0);
     return total;
   };
@@ -53,8 +53,8 @@ module.exports = function WidgetController(
    * Returns the number of top level annotations which are of type notes.
    */
   function countNotes(annotations) {
-    var total = annotations.reduce(function(count, annotation) {
-      return metadata.isPageNote(annotation) ? count+1 : count;
+    var total = annotations.reduce(function (count, annotation) {
+      return metadata.isPageNote(annotation) ? count + 1 : count;
     }, 0);
     return total;
   };
